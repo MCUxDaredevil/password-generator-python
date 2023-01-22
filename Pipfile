@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pyinquirer = "*"
 prompt-toolkit = "==1.0.14"
+pyperclip = "*"
 
 [dev-packages]
 

@@ -3,8 +3,8 @@ import random
 import os
 
 from PyInquirer import prompt
+import pyperclip
 
-# ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 char_dict = {
     "small_alphabets": "abcdefghijklmnopqrstuvwxyz",
     "capital_alphabets": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -12,7 +12,7 @@ char_dict = {
     "special_characters": r"!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 }
 
-questions = [
+selectParameters = [
     {
         "type": "checkbox",
         "message": "Select parameters",
@@ -32,32 +32,38 @@ questions = [
                 "name": "Special Characters"
             }
         ]
-    },
+    }
+]
+
+passwordLength = [
     {
         "type": "input",
         "message": "Enter password length",
         "name": "length",
-        "default": "16"
+        "default": "25"
     }
 ]
 
 
-def create_password(length=16):
-    character_string = char_dict["small_alphabets"] + char_dict["capital_alphabets"] + char_dict["numbers"] + char_dict["special_characters"]
-
-    print("".join(random.sample(character_string, k=length)))
-
-
-def main():
+def generate_password():
     while True:
         os.system("clear")
-        answers = prompt(questions)
-        if len(answers["parameters"]) != 0:
+        params = prompt(selectParameters)
+        if len(params["parameters"]) != 0:
             break
         print("\nYou must choose at least one parameter.")
         time.sleep(2)
-    print(answers)
+    length = prompt(passwordLength)
+
+    characters = "".join(
+        char_dict[param.lower().replace(" ", "_")]
+        for param in params["parameters"]
+    )
+
+    password = "".join(random.choices(characters, k=int(length["length"])))
+    pyperclip.copy(password)
+    print(f"\nPassword: {password}")
 
 
 if __name__ == "__main__":
-    main()
+    generate_password()
