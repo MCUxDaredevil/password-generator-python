@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyinquirer = "*"
+prompt-toolkit = "==1.0.14"
 
 [dev-packages]
 
