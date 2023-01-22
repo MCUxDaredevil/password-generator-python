@@ -1,5 +1,5 @@
 # password-generator-python
-### A CLI based Password Generator for Python
+### A CLI based Password Generator in Python
 
 - Just run the generate_password.py file <br>
 - It will ask for the parameters to consider for the passphrase and the length of it <br>
